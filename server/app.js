@@ -3,12 +3,12 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+var Pet = require('../models/pet');
 // get the express app
 var app = express();
 
 // URL to mongo db
-var mongoURI = 'mongodb://localhost:27017/DATABASENAME';
+var mongoURI = 'mongodb://localhost:27017/gotcha-db';
 // connects to db & document store, returns object to give access to client
 var MongoDB = mongoose.connect(mongoURI).connection;
 // on error message
@@ -35,12 +35,27 @@ app.get('/', function(req, res){
   res.sendFile(path.resolve('views/index.html'));
 });
 
-// get route to retrieve
-app.get('/getRoute', function(req, res){
-
+// post route to create
+app.post('/createPet', function(req, res){
+  console.log('hit createPet post route, req.body: ', req.body.name);
+  // retrieved the req.body, put into object to be saved to db
+  var addPetRecord = {
+    name: req.body.name,
+    type: req.body.type,
+    age: req.body.age,
+    bio: req.body.bio,
+    img: req.body.img
+  };
+  console.log('in addPetRecord:', addPetRecord);
+  var newPetRecord = Pet(addPetRecord);
+  newPetRecord.save();
 });
 
-// post route to create
-app.post('/postRoute', function(req, res){
-
+// get route to retrieve pet data
+app.get('/getPet', function(req, res){
+  console.log('hit getPet get route');
+  Pet.find()
+  .then(function(data){
+    res.send(data);
+  });
 });
