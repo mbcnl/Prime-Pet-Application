@@ -61,10 +61,18 @@ app.get('/getPet', function(req, res){
 });
 
 // delete route to delete pet by id
-app.post('/deletePet', function(req, res){
-  console.log('delete route');
-
-  Pet.remove({_id: req.body.id}, function(err) {
-    if(err) throw err;
+app.post('/deletePet', function (req, res){
+  console.log(req.body.id);
+  Pet.findOne({'_id': req.body.id}, function(err, pet){
+    if(err){
+      console.log(err);
+    }else{
+      Pet.remove({'_id': req.body.id}, function(err){
+        if(err){
+          console.log('remove ' + err);
+        }else{
+        }
+      });
+    }
   });
 });

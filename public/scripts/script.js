@@ -57,19 +57,19 @@ myApp.controller('showController', ['$scope', '$http', function($scope, $http){
     }); // end get route
 }]); // end showController
 
-// not functional right now and is only removing from DOM, not DB
 myApp.controller('deleteController', ['$scope', '$http', function($scope, $http){
-  $scope.remove = function(index) {
+  $scope.deletePet = function(index){
+    var petToDelete = $scope.petRecords[index];
     $scope.petRecords.splice(index, 1);
-    // create an object to send to server of pet needing deletion
-    var petToDelete = {
-     id: $scope.petRecords._id
-    };
-    console.log('petRecords: id: ', $scope.petRecords._id); // undefined id
+    var petId = {
+      id: petToDelete._id
+    }; // end petId object
+
+    // post route to update data
     $http({
       method: 'POST',
       url: '/deletePet',
-      data: petToDelete
-    });
-  }; // end remove
-}]); // end deleteController
+      data: petId
+    }); // end post route
+  }; // end deletePet
+}]);
