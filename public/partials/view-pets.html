@@ -1,25 +1,28 @@
+<div class="jumbotron text-center">
+    <h1>View All Adoptable Animals</h1>
+</div>
+
 <div ng-controller="showController">
-  <h2>Show Pets</h2>
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-hover table-bordered">
       <thead>
         <tr>
+          <th>Image</th>
           <th>Name</th>
           <th>Type</th>
           <th>Age</th>
           <th>Bio</th>
-          <th>Image</th>
           <th>Delete</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="pet in petRecords">
+          <td><img class="thumbnail img-responsive" src="{{ pet.img }}"/></td>
           <td>{{ pet.name }}</td>
           <td>{{ pet.type }}</td>
           <td>{{ pet.age }}</td>
           <td>{{ pet.bio }}</td>
-          <td><img class="img-circle img-responsive" src="{{ pet.img }}"/></td>
-          <td ng-controller="deleteController"><button class="btn" ng-click="deletePet($index)">Delete</button></td>
+          <td ng-controller="deleteController"><button class="btn btn-danger" ng-click="deletePet($index)">Delete</button></td>
         </tr>
       </tbody>
     </table>

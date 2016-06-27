@@ -1,31 +1,31 @@
 <div class="jumbotron text-center">
-    <h1>Add a pet </h1>
-    <p>This page demonstrates <span class="text-danger">multiple</span> and <span class="text-danger">named</span> views.</p>
+    <h1>Add New Animal</h1>
 </div>
 
 <div ng-controller="addController">
-  <h2>Add New Pet</h2>
   <form role="form" class="form-inline">
     <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" class="form-control" id="name" ng-model="nameIn">
+      <input type="text" class="form-control" id="name" ng-model="nameIn" placeholder="Enter Name">
     </div>
     <div class="form-group">
       <label for="type">Type:</label>
-      <input type="text" class="form-control" id="type" ng-model="typeIn">
+      <input type="text" class="form-control" id="type" ng-model="typeIn" placeholder="Enter Type">
     </div>
     <div class="form-group">
       <label for="age">Age:</label>
-      <input type="text" class="form-control" id="age" ng-model="ageIn">
+      <input type="text" class="form-control" id="age" ng-model="ageIn" placeholder="Enter Age">
     </div>
     <div class="form-group">
       <label for="bio">Bio:</label>
-      <input type="text" class="form-control" id="bio" ng-model="bioIn">
+      <input type="text" class="form-control" id="bio" ng-model="bioIn" placeholder="Enter Bio">
     </div>
     <div class="form-group">
-      <label for="image">Image:</label>
-      <input type="text" class="form-control" id="image" ng-model="imgIn">
+      <label for="image">Image (URL):</label>
+      <input type="text" class="form-control" id="image" ng-model="imgIn" placeholder="Enter Image URL">
     </div>
-    <button id="addButton" ng-click="getInput()" type="submit" class="btn">Add</button>
+    <div class="form-group">
+      <button id="addButton" ng-confirm-click="Sucessfully added new animal. View Animals to see your addition!" ng-click="getInput()" type="submit" class="btn btn-danger">Add</button>
+    </div>
   </form>
 </div>

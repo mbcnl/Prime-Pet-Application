@@ -22,7 +22,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 // addController to create new pets
 myApp.controller('addController', ['$scope', '$http', function($scope, $http){
   $scope.petRecords = [];
-
+  // ng-click function to add pet
   $scope.getInput = function(){
     event.preventDefault();
     console.log('getInput button clicked');
@@ -35,16 +35,17 @@ myApp.controller('addController', ['$scope', '$http', function($scope, $http){
       img: $scope.imgIn
     }; // end petToSend
     console.log('in getInput, petToSend: ', petToSend);
-
     // post route to create data
     $http({
       method: 'POST',
       url: '/createPet',
       data: petToSend
     }); // end post route
+
   }; // end getInput
 }]); // end addController
 
+// showController to display all pets from db
 myApp.controller('showController', ['$scope', '$http', function($scope, $http){
     //retrieve pet records
     $http({
@@ -57,6 +58,7 @@ myApp.controller('showController', ['$scope', '$http', function($scope, $http){
     }); // end get route
 }]); // end showController
 
+// deleteController to delete pet from db on ng-click
 myApp.controller('deleteController', ['$scope', '$http', function($scope, $http){
   $scope.deletePet = function(index){
     var petToDelete = $scope.petRecords[index];
@@ -72,4 +74,19 @@ myApp.controller('deleteController', ['$scope', '$http', function($scope, $http)
       data: petId
     }); // end post route
   }; // end deletePet
+}]); // end deleteController
+
+// directive to alert user of successful addition of new animal
+myApp.directive('ngConfirmClick', [function(){
+  return{
+    link: function (scope, element, attr){
+      var msg = attr.ngConfirmClick || "Are you sure?";
+      var clickAction = attr.confirmedClick;
+      element.bind('click',function(event){
+        if(window.confirm(msg)){
+          scope.$eval(clickAction);
+        }
+      });
+    }
+  };
 }]);

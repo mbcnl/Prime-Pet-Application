@@ -35,7 +35,7 @@ app.get('/', function(req, res){
   res.sendFile(path.resolve('views/index.html'));
 });
 
-// post route to create
+// post route to create new pet
 app.post('/createPet', function(req, res){
   console.log('hit createPet post route, req.body: ', req.body.name);
   // retrieved the req.body, put into object to be saved to db
@@ -58,7 +58,7 @@ app.get('/getPet', function(req, res){
   .then(function(data){
     res.send(data);
   });
-});
+}); // end getPet route
 
 // delete route to delete pet by id
 app.post('/deletePet', function (req, res){
@@ -66,13 +66,8 @@ app.post('/deletePet', function (req, res){
   Pet.findOne({'_id': req.body.id}, function(err, pet){
     if(err){
       console.log(err);
-    }else{
-      Pet.remove({'_id': req.body.id}, function(err){
-        if(err){
-          console.log('remove ' + err);
-        }else{
-        }
-      });
-    }
-  });
-});
+    } else {
+      Pet.remove({'_id': req.body.id});
+    } // end success
+  }); // end findOne
+}); // end deletePet route

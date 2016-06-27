@@ -1,3 +1,31 @@
 .img-responsive {
   max-width: 25%;
 }
+
+.thumbnail {
+  width: 300px;
+  overflow: hidden;
+  position: relative;
+  border: none;
+  border-radius: 0px;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: white;
+}
+
+.navbar {
+  border-radius: 0px;
+}
+
+.container {
+  width: 100%;
+}
+
+.form-group {
+  margin: 10px 0;
+}

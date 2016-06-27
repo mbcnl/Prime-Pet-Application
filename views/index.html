@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Gotcha Rescue Pet Database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gotcha! Rescue Pet Database</title>
     <script type="text/javascript" src="vendors/angular.min.js"></script>
     <script type="text/javascript" src="vendors/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="scripts/script.js"></script>
@@ -10,15 +11,17 @@
     <link rel="stylesheet" href="css/stylesheet.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body ng-app="myApp">
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
-        <a class="navbar-brand" ui-sref="home">Gotcha! Animal Rescue Database</a>
+        <div class="navbar-header">
+          <a class="navbar-brand" ui-sref="home">Gotcha!</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a ui-sref="home">Home</a></li>
+          <li><a ui-sref="add">Add Animal</a></li>
+          <li><a ui-sref="view">View Animals</a></li>
+        </ul>
       </div>
-      <ul class="nav navbar-nav">
-        <li><a ui-sref="home">Home</a></li>
-        <li><a ui-sref="add">Add Pet</a></li>
-        <li><a ui-sref="view">View Pets</a></li>
-      </ul>
     </nav>
     <div class="container">
       <div ui-view></div>
