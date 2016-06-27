@@ -4,66 +4,26 @@
     <meta charset="utf-8">
     <title>Gotcha Rescue Pet Database</title>
     <script type="text/javascript" src="vendors/angular.min.js"></script>
+    <script type="text/javascript" src="vendors/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="scripts/script.js"></script>
     <link rel="stylesheet" href="vendors/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="css/stylesheet.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body ng-app="myApp">
+
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="#">Gotcha! Rescue Database</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a ui-sref="home">Home</a></li>
+        <li><a ui-sref="add">Add Pet</a></li>
+        <li><a ui-sref="view">View Pets</a></li>
+      </ul>
+    </nav>
+
     <div class="container">
-      <h1>Gotcha! Rescue Pet Database</h1>
-
-      <div ng-controller="addController">
-        <h2>Add New Pet</h2>
-        <form role="form" class="form-inline">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" ng-model="nameIn">
-          </div>
-          <div class="form-group">
-            <label for="type">Type:</label>
-            <input type="text" class="form-control" id="type" ng-model="typeIn">
-          </div>
-          <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="text" class="form-control" id="age" ng-model="ageIn">
-          </div>
-          <div class="form-group">
-            <label for="bio">Bio:</label>
-            <input type="text" class="form-control" id="bio" ng-model="bioIn">
-          </div>
-          <div class="form-group">
-            <label for="image">Image:</label>
-            <input type="text" class="form-control" id="image" ng-model="imageIn">
-          </div>
-          <button id="addButton" ng-click="getInput()" type="submit" class="btn">Add</button>
-        </form>
-      </div>
-
-      <div ng-controller="showController">
-        <h2>Show Pets</h2>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Age</th>
-                <th>Bio</th>
-                <th>Image</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="pet in petRecords">
-                <td>{{ pet.name }}</td>
-                <td>{{ pet.type }}</td>
-                <td>{{ pet.age }}</td>
-                <td>{{ pet.bio }}</td>
-                <td><img class="img-circle img-responsive" src="{{ pet.img }}"/></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <div ui-view></div>
     </div>
   </body>
 </html>

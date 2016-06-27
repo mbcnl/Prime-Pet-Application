@@ -1,37 +1,38 @@
 // define an angular module
-var myApp = angular.module('myApp', []);
+var myApp = angular.module('myApp', ['ui.router']);
 
-angular.element(document).ready(function () {
-    console.log('page loading completed');
-});
+// router to change application views based on state of application
+myApp.config(function($stateProvider, $urlRouterProvider){
+  $urlRouterProvider.otherwise('/home');
+  $stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl: 'partials/home.html'
+    })
+    .state('add', {
+      url: '/add',
+      templateUrl: 'partials/add-pet.html'
+    })
+    .state('view', {
+      url: '/view',
+      templateUrl: 'partials/view-pets.html'
+    });
+}); // end route config
 
-myApp.controller('showController', ['$scope', "$http", function($scope, $http){
-  //retrieve pet records
-  $http({
-    method: 'GET',
-    url: '/getPet',
-  }).then(function(response){
-    console.log('in getPet, response: ', response.data);
-    $scope.petRecords = response.data;
-  }, function myError(response){
-    console.log(response.statusText);
-  }); // end get route
-}]);
-
-myApp.controller('addController', ['$scope', "$http", function($scope, $http){
+// addController to create new pets
+myApp.controller('addController', ['$scope', '$http', function($scope, $http){
   $scope.petRecords = [];
 
   $scope.getInput = function(){
     event.preventDefault();
     console.log('getInput button clicked');
-
     // get the user input and store in object
     var petToSend = {
       name: $scope.nameIn,
       type: $scope.typeIn,
       age: $scope.ageIn,
       bio: $scope.bioIn,
-      img: $scope.imageIn
+      img: $scope.imgIn
     }; // end petToSend
     console.log('in getInput, petToSend: ', petToSend);
 
@@ -43,3 +44,32 @@ myApp.controller('addController', ['$scope', "$http", function($scope, $http){
     }); // end post route
   }; // end getInput
 }]); // end addController
+
+myApp.controller('showController', ['$scope', '$http', function($scope, $http){
+    //retrieve pet records
+    $http({
+      method: 'GET',
+      url: '/getPet',
+    }).then(function(response){
+      $scope.petRecords = response.data;
+    }, function myError(response){
+      console.log(response.statusText);
+    }); // end get route
+}]); // end showController
+
+// not functional right now and is only removing from DOM, not DB
+myApp.controller('deleteController', ['$scope', '$http', function($scope, $http){
+  $scope.remove = function(index) {
+    $scope.petRecords.splice(index, 1);
+    // create an object to send to server of pet needing deletion
+    var petToDelete = {
+     id: $scope.petRecords._id
+    };
+    console.log('petRecords: id: ', $scope.petRecords._id); // undefined id
+    $http({
+      method: 'POST',
+      url: '/deletePet',
+      data: petToDelete
+    });
+  }; // end remove
+}]); // end deleteController

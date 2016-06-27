@@ -1,0 +1,31 @@
+<div class="jumbotron text-center">
+    <h1>Add a pet </h1>
+    <p>This page demonstrates <span class="text-danger">multiple</span> and <span class="text-danger">named</span> views.</p>
+</div>
+
+<div ng-controller="addController">
+  <h2>Add New Pet</h2>
+  <form role="form" class="form-inline">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" ng-model="nameIn">
+    </div>
+    <div class="form-group">
+      <label for="type">Type:</label>
+      <input type="text" class="form-control" id="type" ng-model="typeIn">
+    </div>
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="text" class="form-control" id="age" ng-model="ageIn">
+    </div>
+    <div class="form-group">
+      <label for="bio">Bio:</label>
+      <input type="text" class="form-control" id="bio" ng-model="bioIn">
+    </div>
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="text" class="form-control" id="image" ng-model="imgIn">
+    </div>
+    <button id="addButton" ng-click="getInput()" type="submit" class="btn">Add</button>
+  </form>
+</div>
