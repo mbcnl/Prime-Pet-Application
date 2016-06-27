@@ -48,14 +48,19 @@ myApp.controller('addController', ['$scope', '$http', function($scope, $http){
 // showController to display all pets from db
 myApp.controller('showController', ['$scope', '$http', function($scope, $http){
     //retrieve pet records
-    $http({
-      method: 'GET',
-      url: '/getPet',
-    }).then(function(response){
-      $scope.petRecords = response.data;
-    }, function myError(response){
-      console.log(response.statusText);
-    }); // end get route
+    $scope.getPets = function(){
+      $http({
+        method: 'GET',
+        url: '/getPet',
+      }).then(function(response){
+        $scope.petRecords = response.data;
+      }, function myError(response){
+        console.log(response.statusText);
+      }); // end get route
+    }; // end getPets
+    // call the function to get pets on window load
+    $scope.getPets();
+
 }]); // end showController
 
 // deleteController to delete pet from db on ng-click
