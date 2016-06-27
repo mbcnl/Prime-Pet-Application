@@ -21,7 +21,7 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 
 // addController to create new pets
 myApp.controller('addController', ['$scope', '$http', function($scope, $http){
-  $scope.petRecords = [];
+
   // ng-click function to add pet
   $scope.getInput = function(){
     event.preventDefault();
@@ -46,24 +46,22 @@ myApp.controller('addController', ['$scope', '$http', function($scope, $http){
 
 // showController to display all pets from db
 myApp.controller('showController', ['$scope', '$http', function($scope, $http){
-    //retrieve pet records
-    $scope.getPets = function(){
-      $http({
-        method: 'GET',
-        url: '/getPet',
-      }).then(function(response){
-        $scope.petRecords = response.data;
-      }, function myError(response){
-        console.log(response.statusText);
-      }); // end get route
-    }; // end getPets
-    // call the function to get pets on window load
-    $scope.getPets();
+  $scope.petRecords = [];
+  //retrieve pet records
+  $scope.getPets = function(){
+    $http({
+      method: 'GET',
+      url: '/getPet',
+    }).then(function(response){
+      $scope.petRecords = response.data;
+    }, function myError(response){
+      console.log(response.statusText);
+    }); // end get route
+  }; // end getPets
+  // call the function to get pets on window load
+  $scope.getPets();
 
-}]); // end showController
-
-// deleteController to delete pet from db on ng-click
-myApp.controller('deleteController', ['$scope', '$http', function($scope, $http){
+  // delete pet from dom and db on ng-click, currently is not functional removing from DB
   $scope.deletePet = function(index){
     var petToDelete = $scope.petRecords[index];
     $scope.petRecords.splice(index, 1);
@@ -78,7 +76,7 @@ myApp.controller('deleteController', ['$scope', '$http', function($scope, $http)
       data: petId
     }); // end post route
   }; // end deletePet
-}]); // end deleteController
+}]); // end showController
 
 // directive to alert user of successful addition of new animal
 myApp.directive('ngConfirmClick', [function(){
