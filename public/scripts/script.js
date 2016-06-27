@@ -41,7 +41,6 @@ myApp.controller('addController', ['$scope', '$http', function($scope, $http){
       url: '/createPet',
       data: petToSend
     }); // end post route
-
   }; // end getInput
 }]); // end addController
 
