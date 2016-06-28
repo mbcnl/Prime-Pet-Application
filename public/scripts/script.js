@@ -21,7 +21,6 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 
 // addController to create new pets
 myApp.controller('addController', ['$scope', '$http', function($scope, $http){
-  $scope.petRecords = [];
   // ng-click function to add pet
   $scope.getInput = function(){
     event.preventDefault();
@@ -39,6 +38,8 @@ myApp.controller('addController', ['$scope', '$http', function($scope, $http){
       method: 'POST',
       url: '/createPet',
       data: petToSend
+    }).then(function(){
+      $scope.getPets();
     }); // end post route
     // clears input fields
     $scope.nameIn = '';
@@ -49,30 +50,30 @@ myApp.controller('addController', ['$scope', '$http', function($scope, $http){
   }; // end getInput
 }]); // end addController
 
-// showController to display all pets from db
+// showController to display data from db
 myApp.controller('showController', ['$scope', '$http', function($scope, $http){
-    //retrieve pet records
-    $scope.getPets = function(){
-      $http({
-        method: 'GET',
-        url: '/getPet',
-      }).then(function(response){
-        $scope.petRecords = response.data;
-      }, function myError(response){
-        console.log(response.statusText);
-      }); // end get route
-    }; // end getPets
-}]); // end showController
+  $scope.petRecords = [];
+  //retrieve pet records
+  $scope.getPets = function(){
+    $http({
+      method: 'GET',
+      url: '/getPet',
+    }).then(function(response){
+      $scope.petRecords = response.data;
+    }, function myError(response){
+      console.log(response.statusText);
+    }); // end get route
+  }; // end getPets
 
-myApp.controller('deleteController', ['$scope', '$http', function($scope, $http){
-  // delete pet from db on ng-click
+  $scope.getPets();
+
+  // delete pet from dom and db on ng-click, seems to be working...
   $scope.deletePet = function(index){
     var petToDelete = $scope.petRecords[index];
     $scope.petRecords.splice(index, 1);
     var petId = {
       id: petToDelete._id
     }; // end petId object
-
     // post route to update data
     $http({
       method: 'POST',
@@ -80,7 +81,7 @@ myApp.controller('deleteController', ['$scope', '$http', function($scope, $http)
       data: petId
     }); // end post route
   }; // end deletePet
-}]);
+}]); // end showController
 
 // directive to alert user of successful addition of new animal
 myApp.directive('ngConfirmClick', [function(){
