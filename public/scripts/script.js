@@ -62,8 +62,6 @@ myApp.controller('showController', ['$scope', '$http', function($scope, $http){
         console.log(response.statusText);
       }); // end get route
     }; // end getPets
-    // call the function to get pets on window load
-    $scope.getPets();
 }]); // end showController
 
 myApp.controller('deleteController', ['$scope', '$http', function($scope, $http){
