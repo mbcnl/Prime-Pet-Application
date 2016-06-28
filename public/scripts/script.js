@@ -21,7 +21,6 @@ myApp.config(function($stateProvider, $urlRouterProvider){
 
 // addController to create new pets
 myApp.controller('addController', ['$scope', '$http', function($scope, $http){
-
   // ng-click function to add pet
   $scope.getInput = function(){
     event.preventDefault();
@@ -40,11 +39,19 @@ myApp.controller('addController', ['$scope', '$http', function($scope, $http){
       method: 'POST',
       url: '/createPet',
       data: petToSend
+    }).then(function(){
+      $scope.getPets();
     }); // end post route
+    // clear inputs
+    $scope.nameIn = '';
+    $scope.typeIn = '';
+    $scope.ageIn = '';
+    $scope.bioIn = '';
+    $scope.imgIn = '';
   }; // end getInput
-}]); // end addController
+}]);
 
-// showController to display all pets from db
+// showController to display data from db
 myApp.controller('showController', ['$scope', '$http', function($scope, $http){
   $scope.petRecords = [];
   //retrieve pet records
@@ -58,7 +65,7 @@ myApp.controller('showController', ['$scope', '$http', function($scope, $http){
       console.log(response.statusText);
     }); // end get route
   }; // end getPets
-  // call the function to get pets on window load
+
   $scope.getPets();
 
   // delete pet from dom and db on ng-click, currently is not functional removing from DB
@@ -68,7 +75,6 @@ myApp.controller('showController', ['$scope', '$http', function($scope, $http){
     var petId = {
       id: petToDelete._id
     }; // end petId object
-
     // post route to update data
     $http({
       method: 'POST',

@@ -67,8 +67,13 @@ app.post('/deletePet', function (req, res){
     if(err){
       console.log(err);
     } else {
-      Pet.remove({'_id': req.body.id});
-      console.log('in Pet.remove success, req.body.id: ', req.body.id);
-    } // end success
-  }); // end findOne
+      Pet.remove({'_id': req.body.id}, function(err){
+        if(err){
+          console.log('remove ' + err);
+        } else {
+          console.log('success');
+        }
+      });
+    }
+  });
 }); // end deletePet route
