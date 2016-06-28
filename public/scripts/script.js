@@ -34,14 +34,18 @@ myApp.controller('addController', ['$scope', '$http', function($scope, $http){
       bio: $scope.bioIn,
       img: $scope.imgIn
     }; // end petToSend
-    console.log('in getInput, petToSend: ', petToSend);
     // post route to create data
     $http({
       method: 'POST',
       url: '/createPet',
       data: petToSend
     }); // end post route
-
+    // clears input fields
+    $scope.nameIn = '';
+    $scope.typeIn = '';
+    $scope.ageIn = '';
+    $scope.bioIn = '';
+    $scope.imgIn = '';
   }; // end getInput
 }]); // end addController
 
@@ -60,11 +64,10 @@ myApp.controller('showController', ['$scope', '$http', function($scope, $http){
     }; // end getPets
     // call the function to get pets on window load
     $scope.getPets();
-
 }]); // end showController
 
-// deleteController to delete pet from db on ng-click
 myApp.controller('deleteController', ['$scope', '$http', function($scope, $http){
+  // delete pet from db on ng-click
   $scope.deletePet = function(index){
     var petToDelete = $scope.petRecords[index];
     $scope.petRecords.splice(index, 1);
@@ -79,7 +82,7 @@ myApp.controller('deleteController', ['$scope', '$http', function($scope, $http)
       data: petId
     }); // end post route
   }; // end deletePet
-}]); // end deleteController
+}]);
 
 // directive to alert user of successful addition of new animal
 myApp.directive('ngConfirmClick', [function(){
